@@ -1,0 +1,22 @@
+version: '3.5' # specify docker-compose version
+services:
+
+  my-mariadb-database:
+    image: mariadb:10.6.4
+    container_name: my-backend-db
+    ports:
+      - "3306:3306"
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max_allowed_packet=125829120 --default-time-zone=+00:00
+
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: my-backend
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
+    networks:
+      - my-network
+networks:
+  my-network:
